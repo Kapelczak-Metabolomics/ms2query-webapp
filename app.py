@@ -1,6 +1,18 @@
-# Adjusted Streamlit-based code for MS2Query Web App using MS2Library
+# Adjusted Streamlit-based code with integrated check-and-install mechanism for ms2query
+import subprocess
+import sys
 import streamlit as st
 import os
+
+def install_and_import(package):
+	try:
+		__import__(package)
+	except ImportError:
+		subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Ensure ms2query is installed
+install_and_import("ms2query")
+
 from ms2query.ms2library import MS2Library
 
 # Create upload folder
